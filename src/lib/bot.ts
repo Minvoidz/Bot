@@ -38,7 +38,7 @@ const MSG = {
     "Format angka bebas: `500000`, `20.000`, `1.000.000`.",
   notLinked:
     "Akun belum terhubung.\n\n" +
-    "Ketik `/start` dan masukkan kode akses dari email admin untuk menghubungkan chat ini.",
+    "Ketik `/start` untuk mendapatkan kode penghubung 6 digit.",
   unregistered:
     "Kode tidak dikenal. Cek email admin untuk kode akses yang benar.",
 };
@@ -78,7 +78,8 @@ export async function handleUpdate(update: {
   const user = await prisma.user.findUnique({ where: { telegramChatId: chatId } });
 
   // /start: hubungkan akun
-  if (text === "/start") {
+  const command = text.split(/\s+/)[0].split("@")[0];
+  if (command === "/start") {
     if (user) {
       await replaceStatus(chatId, "✅ Akun sudah terhubung. Ketik `/saldo` untuk cek saldo.");
     } else {

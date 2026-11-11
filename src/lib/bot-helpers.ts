@@ -97,10 +97,12 @@ export async function replaceStatus(chatId: string, text: string, extra?: Record
     parse_mode: "Markdown",
     ...(extra ?? {}),
   });
+  if (user) {
   await prisma.user.update({
     where: { telegramChatId: chatId },
     data: { lastBotMessageId: sent.message_id },
   });
+}
   return sent;
 }
 
