@@ -128,7 +128,7 @@ export async function handleUpdate(update: {
         await replaceStatus(chatId, await kategoriList(user.id));
         break;
       case "/laporan":
-        await reportMenu(chatId, msg.message_id);
+        await reportMenu(chatId);
         break;
       case "/help":
         await replaceStatus(chatId, MSG.help);
@@ -227,7 +227,7 @@ async function resolveCategory(userId: string, type: "INCOME" | "EXPENSE", note:
 }
 
 /** Menu laporan: pilih bulan (3 terakhir + bulan lain) */
-async function reportMenu(chatId: string, msgId: number) {
+async function reportMenu(chatId: string) {
   const now = new Date();
   const months: { label: string; data: string }[] = [];
   for (let i = 0; i < 3; i++) {
@@ -236,7 +236,7 @@ async function reportMenu(chatId: string, msgId: number) {
     months.push({ label, data: `report:${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}` });
   }
 
-  await editMsg(chatId, msgId, "📊 *Laporan bulan apa?*", {
+  await sendRaw(chatId, "📊 *Laporan bulan apa?*", {
     reply_markup: {
       inline_keyboard: [
         months.map((m) => ({ text: m.label, callback_data: m.data })),
