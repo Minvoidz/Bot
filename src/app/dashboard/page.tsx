@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { formatIDR } from "@/lib/utils";
+// import { formatIDR } from "@/lib/utils";
 import DashboardClient from "./client";
 import { auth } from "@/lib/auth";
 
@@ -43,7 +43,7 @@ export default async function DashboardPage() {
   return (
     <DashboardClient
       initial={{ income, expense, balance, categories, txs }}
-      formatIDR={formatIDR}
+      // formatIDR={formatIDR}
     />
   );
 }

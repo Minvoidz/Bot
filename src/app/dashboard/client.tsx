@@ -14,12 +14,18 @@ type Tx = {
 
 type Category = { id: string; name: string; type: "INCOME" | "EXPENSE" };
 
+// export default function DashboardClient({
+//   initial,
+//   formatIDR,
+function formatIDR(n: number): string {
+  return new Intl.NumberFormat("id-ID").format(n);
+}
+
 export default function DashboardClient({
   initial,
-  formatIDR,
 }: {
   initial: { income: number; expense: number; balance: number; categories: Category[]; txs: Tx[] };
-  formatIDR: (n: number) => string;
+  // formatIDR: (n: number) => string;
 }) {
   const router = useRouter();
   const [txs, setTxs] = useState<Tx[]>(initial.txs);
